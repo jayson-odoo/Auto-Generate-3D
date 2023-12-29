@@ -25,11 +25,13 @@ function exit() {
 }
 
 window.addEventListener('message', (event) => {
+    console.log("awlefjdsl")
     var design_id = event.data
     processFile(design_id);
 });
 
 function processFile(design_id) {
+    console.log('walallalal')
     // const queryString = window.location.search;
     // const urlParams = new URLSearchParams(queryString);
     // console.log(window.top.location.href)
@@ -42,6 +44,10 @@ function processFile(design_id) {
         dataType: 'json',
         success: function (data) { 
             window.parent.postMessage({action: 'getData', fileContent: data}, '*')
+        },
+        error: function (data) {
+            console.log("failll")
+            window.parent.postMessage({action: 'exit'}, '*')
         }
     });
     // var request = new XMLHttpRequest();
@@ -59,20 +65,20 @@ function processFile(design_id) {
     // };
     // // console.log(request)
     // request.send();
-    var fileInput = document.getElementById('fileInput');
-    var file = fileInput.files[0];
+//     var fileInput = document.getElementById('fileInput');
+//     var file = fileInput.files[0];
 
-    if (file) {
-        var reader = new FileReader();
+//     if (file) {
+//         var reader = new FileReader();
 
-        reader.onload = function(e) {
-          var fileContent = e.target.result;
-          // Add your code to process the data here
-          window.parent.postMessage({action: 'getData', fileContent: fileContent}, '*')
-    };
+//         reader.onload = function(e) {
+//           var fileContent = e.target.result;
+//           // Add your code to process the data here
+//           window.parent.postMessage({action: 'getData', fileContent: fileContent}, '*')
+//     };
 
-    reader.readAsText(file);
-  }
+//     reader.readAsText(file);
+//   }
 }
 
 function getWallInfo() {
